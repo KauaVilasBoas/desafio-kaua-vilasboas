@@ -53,8 +53,7 @@ class CaixaDaLanchonete {
 
   calcularValorTotalDoCarrinho(items) {
 
-      var retorno = this.validarItemsExtrasDoCarrinho(items);
-      console.log(retorno + " <- AQUII ")
+      this.validarItemsExtrasDoCarrinho(items);
 
       var valorTotal = 0;
 
@@ -105,7 +104,6 @@ class CaixaDaLanchonete {
         for (const element of items) {
           const arraySplitQueijo = element.split(',');
           if (arraySplitQueijo[0] === "sanduiche") {
-            console.log("TESTEEEE");
             return true;
           }
         }
@@ -117,8 +115,5 @@ class CaixaDaLanchonete {
   }
   
 }
-
-var caixa = new CaixaDaLanchonete();
-console.log(caixa.calcularValorDaCompra("credito", ['cafe,1', 'sanduiche,1', 'queijo,1']))
 
 export { CaixaDaLanchonete };
