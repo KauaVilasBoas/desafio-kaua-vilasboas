@@ -12,6 +12,7 @@ class CaixaDaLanchonete {
   combo2 = new Comida("combo2", "1 Café e 1 Sanduíche", 7.50)
 
   cardapio = [this.cafe, this.chantily, this.suco, this.sanduiche, this.queijo, this.salgado, this.combo1, this.combo2]
+  
 
   calcularValorDaCompra(metodoDePagamento, items) {
     try {
@@ -87,33 +88,26 @@ class CaixaDaLanchonete {
   }
 
   validarItemsExtrasDoCarrinho(items) {
+    const itemRequerido = {
+      chantily: "cafe",
+      queijo: "sanduiche"
+    };
+  
     for (const element of items) {
-      const arraySplit = element.split(',');
+      const [principal, _] = element.split(',');
   
-      if (arraySplit[0] === "chantily") {
-        for (const element of items) {
-          const arraySplitChantily = element.split(',');
-          if (arraySplitChantily[0] === "cafe") {
-            return true;
-          }
-        }
-        throw new Error('Item extra não pode ser pedido sem o principal');
-      }
-  
-      if (arraySplit[0] === "queijo") {
-        for (const element of items) {
-          const arraySplitQueijo = element.split(',');
-          if (arraySplitQueijo[0] === "sanduiche") {
-            return true;
-          }
-        }
+      if (itemRequerido[principal] && !items.some(item => item.startsWith(itemRequerido[principal]))) {
         throw new Error('Item extra não pode ser pedido sem o principal');
       }
     }
   
-    return false; // Retorna falso se não houver nenhum cenário correspondente
+    return false;
   }
   
+  
 }
+
+const caixa = new CaixaDaLanchonete();
+caixa.calcularValorDaCompra("credito", ["cafe, 2"])
 
 export { CaixaDaLanchonete };
